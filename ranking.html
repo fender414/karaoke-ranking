@@ -228,6 +228,20 @@
 </div>
 
 <script>
+ // ページ読み込み時に保存済みの値を復元
+window.addEventListener('load', () => {
+  ['name1','name2','name3','score1','score2','score3'].forEach(id => {
+    const saved = localStorage.getItem(id);
+    if (saved) document.getElementById(id).value = saved;
+  });
+});
+
+// 入力するたびに自動保存
+['name1','name2','name3','score1','score2','score3'].forEach(id => {
+  document.getElementById(id).addEventListener('input', (e) => {
+    localStorage.setItem(id, e.target.value);
+  });
+});
   function startPreview() {
     const data = [
       { name: document.getElementById('name1').value, score: document.getElementById('score1').value },
