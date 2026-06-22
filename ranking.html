@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>つきまちカラオケ大会 BEST3</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: #1a0a0a;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+  }
+
+  h1 {
+    color: #fff;
+    font-size: 22px;
+    margin-bottom: 32px;
+    letter-spacing: 2px;
+    text-align: center;
+  }
+
+  .form-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 12px;
+    padding: 32px;
+    width: 100%;
+    max-width: 480px;
+  }
+
+  .rank-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .rank-label {
+    font-size: 28px;
+    font-weight: 900;
+    width: 48px;
+    flex-shrink: 0;
+    text-align: center;
+  }
+  .rank-1 { color: #f5c842; text-shadow: 0 0 12px #f5c842; }
+  .rank-2 { color: #c0c0c0; text-shadow: 0 0 10px #c0c0c0; }
+  .rank-3 { color: #cd7f32; text-shadow: 0 0 10px #cd7f32; }
+
+  .rank-row input {
+    flex: 1;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 15px;
+    color: #fff;
+    font-family: inherit;
+    transition: border-color 0.15s;
+  }
+  .rank-row input::placeholder { color: rgba(255,255,255,0.3); }
+  .rank-row input:focus { outline: none; border-color: #f5c842; }
+
+  .btn-preview {
+    width: 100%;
+    margin-top: 8px;
+    padding: 16px;
+    background: linear-gradient(135deg, #c8a600, #f5c842);
+    color: #1a0a0a;
+    font-size: 16px;
+    font-weight: 900;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    letter-spacing: 2px;
+    transition: opacity 0.15s;
+  }
+  .btn-preview:hover { opacity: 0.85; }
+
+  /* フルスクリーンプレビュー */
+  .preview-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: #000;
+  }
+  .preview-overlay.show { display: block; }
+
+  .preview-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('karaoketokuten202606.png');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .preview-close {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    background: rgba(0,0,0,0.5);
+    border: none;
+    color: #fff;
+    font-size: 28px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ランキング表示エリア */
+  .ranking-display {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 4% 4%;
+    gap: 2.5%;
+    margin-top: 18%;
+  }
+
+  .rank-item {
+    display: flex;
+    align-items: center;
+    height: 17%;
+  }
+
+  .name-box {
+    flex: 0 0 58%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 8%;
+  }
+
+  .name-text {
+    font-size: clamp(20px, 4vw, 52px);
+    font-weight: 900;
+    color: #1a0a0a;
+    letter-spacing: 2px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .rank-item:first-child .name-text { color: #5a3a00; }
+
+  .score-box {
+    flex: 0 0 28%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 2%;
+  }
+
+  .score-text {
+    font-size: clamp(22px, 4.5vw, 58px);
+    font-weight: 900;
+    font-family: 'Courier New', monospace;
+    opacity: 0;
+    transition: opacity 0.3s;
+    /* ネオン風 */
+    color: #fff;
+    text-shadow:
+      0 0 7px #fff,
+      0 0 10px #fff,
+      0 0 21px #fff,
+      0 0 42px #0fa,
+      0 0 82px #0fa,
+      0 0 92px #0fa,
+      0 0 102px #0fa,
+      0 0 151px #0fa;
+  }
+</style>
+</head>
+<body>
+
+<h1>🎤 BEST3 入力フォーム</h1>
+
+<div class="form-card">
+  <div class="rank-row">
+    <span class="rank-label rank-1">🥇</span>
+    <input type="text" id="name1" placeholder="1位 名前">
+    <input type="text" id="score1" placeholder="点数" style="max-width:110px;">
+  </div>
+  <div class="rank-row">
+    <span class="rank-label rank-2">🥈</span>
+    <input type="text" id="name2" placeholder="2位 名前">
+    <input type="text" id="score2" placeholder="点数" style="max-width:110px;">
+  </div>
+  <div class="rank-row">
+    <span class="rank-label rank-3">🥉</span>
+    <input type="text" id="name3" placeholder="3位 名前">
+    <input type="text" id="score3" placeholder="点数" style="max-width:110px;">
+  </div>
+  <button class="btn-preview" onclick="startPreview()">▶ プレビューを表示</button>
+</div>
+
+<!-- プレビュー -->
+<div class="preview-overlay" id="previewOverlay">
+  <div class="preview-bg"></div>
+  <button class="preview-close" onclick="closePreview()">×</button>
+  <div class="ranking-display">
+    <div class="rank-item">
+      <div class="name-box"><span class="name-text" id="pName1"></span></div>
+      <div class="score-box"><span class="score-text" id="pScore1"></span></div>
+    </div>
+    <div class="rank-item">
+      <div class="name-box"><span class="name-text" id="pName2"></span></div>
+      <div class="score-box"><span class="score-text" id="pScore2"></span></div>
+    </div>
+    <div class="rank-item">
+      <div class="name-box"><span class="name-text" id="pName3"></span></div>
+      <div class="score-box"><span class="score-text" id="pScore3"></span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function startPreview() {
+    const data = [
+      { name: document.getElementById('name1').value, score: document.getElementById('score1').value },
+      { name: document.getElementById('name2').value, score: document.getElementById('score2').value },
+      { name: document.getElementById('name3').value, score: document.getElementById('score3').value },
+    ];
+
+    if (!data[0].name && !data[0].score) {
+      alert('1位の名前か点数を入力してください。');
+      return;
+    }
+
+    // リセット
+    for (let i = 1; i <= 3; i++) {
+      const nameEl = document.getElementById('pName' + i);
+      const scoreEl = document.getElementById('pScore' + i);
+      nameEl.textContent = '';
+      scoreEl.textContent = '';
+      nameEl.style.opacity = '0';
+      scoreEl.style.opacity = '0';
+    }
+
+    document.getElementById('previewOverlay').classList.add('show');
+
+    // 3位→1位の順で演出（逆順に表示）
+    const order = [2, 1, 0]; // 3位、2位、1位の順
+    order.forEach((rankIndex, step) => {
+      const rank = rankIndex + 1;
+      const name = data[rankIndex].name;
+      const score = data[rankIndex].score;
+
+      setTimeout(() => {
+        animateValue('pName' + rank, name, 800);
+        animateValue('pScore' + rank, score, 800);
+      }, step * 1200);
+    });
+  }
+
+  function animateValue(elId, finalValue, duration) {
+    const el = document.getElementById(elId);
+    if (!finalValue) return;
+
+    const isScore = elId.startsWith('pScore');
+    const chars = isScore
+      ? '0123456789'
+      : 'あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん';
+
+    let elapsed = 0;
+    const interval = 40;
+    el.style.opacity = '1';
+
+    const timer = setInterval(() => {
+      elapsed += interval;
+      const progress = elapsed / duration;
+
+      if (progress >= 1) {
+        clearInterval(timer);
+        el.textContent = isScore ? finalValue + '点' : finalValue;
+      } else {
+        // ランダム文字でパラパラ演出
+        let randomStr = '';
+        for (let i = 0; i < finalValue.length; i++) {
+          randomStr += chars[Math.floor(Math.random() * chars.length)];
+        }
+        el.textContent = isScore ? randomStr + '点' : randomStr;
+      }
+    }, interval);
+  }
+
+  function closePreview() {
+    document.getElementById('previewOverlay').classList.remove('show');
+  }
+</script>
+
+</body>
+</html>
