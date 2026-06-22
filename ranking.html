@@ -20,7 +20,6 @@
     padding: 40px 24px;
   }
 
-  /* 入力フォーム */
   .form-title {
     color: #f5c842;
     font-size: 20px;
@@ -47,13 +46,7 @@
     margin-bottom: 16px;
   }
 
-  .rank-label {
-    font-size: 24px;
-    font-weight: 900;
-    width: 44px;
-    flex-shrink: 0;
-    text-align: center;
-  }
+  .rank-label { font-size: 24px; font-weight: 900; width: 44px; flex-shrink: 0; text-align: center; }
   .rank-1 { color: #f5c842; text-shadow: 0 0 10px #f5c842; }
   .rank-2 { color: #c0c0c0; text-shadow: 0 0 8px #c0c0c0; }
   .rank-3 { color: #cd7f32; text-shadow: 0 0 8px #cd7f32; }
@@ -94,49 +87,29 @@
     inset: 0;
     z-index: 999;
     background: #1a0505;
-    overflow: hidden;
   }
-  .preview-overlay.show { display: flex; flex-direction: column; }
+  .preview-overlay.show { display: block; }
 
-  /* 背景装飾 */
   .preview-bg {
     position: absolute;
     inset: 0;
-    background:
-      radial-gradient(ellipse at 50% 0%, #8b0000 0%, #3d0000 40%, #1a0505 70%);
-    z-index: 0;
+    background: radial-gradient(ellipse at 50% 0%, #8b0000 0%, #3d0000 40%, #1a0505 70%);
   }
 
-  /* カーテン装飾 */
   .curtain-left, .curtain-right {
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 12%;
+    width: 10%;
     z-index: 1;
     pointer-events: none;
   }
-  .curtain-left {
-    left: 0;
-    background: linear-gradient(to right, #8b0000, #6b0000, transparent);
-  }
-  .curtain-right {
-    right: 0;
-    background: linear-gradient(to left, #8b0000, #6b0000, transparent);
-  }
+  .curtain-left { left: 0; background: linear-gradient(to right, #8b0000, transparent); }
+  .curtain-right { right: 0; background: linear-gradient(to left, #8b0000, transparent); }
 
-  /* キラキラ装飾 */
-  .sparkles {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    overflow: hidden;
-  }
+  .sparkles { position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
   .sparkle {
     position: absolute;
-    width: 4px;
-    height: 4px;
     border-radius: 50%;
     background: #f5c842;
     animation: twinkle 2s infinite;
@@ -146,136 +119,6 @@
     50% { opacity: 1; transform: scale(1.5); }
   }
 
-  /* コンテンツ */
-  .preview-content {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 3vh 14% 3vh;
-  }
-
-  /* タイトル */
-  .preview-title-sub {
-    font-size: clamp(12px, 2vw, 22px);
-    color: #fff;
-    letter-spacing: 4px;
-    font-weight: 700;
-    background: rgba(255,255,255,0.15);
-    padding: 4px 24px;
-    border-radius: 20px;
-    margin-bottom: 1vh;
-    border: 1px solid rgba(255,255,255,0.3);
-  }
-
-  .preview-title-main {
-    font-size: clamp(48px, 10vw, 120px);
-    font-weight: 900;
-    letter-spacing: 4px;
-    margin-bottom: 3vh;
-    background: linear-gradient(180deg, #fff700 0%, #f5c842 40%, #c8860a 70%, #f5c842 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    filter: drop-shadow(0 0 12px rgba(245,200,66,0.8));
-    line-height: 1;
-  }
-
-  /* ランキング行 */
-.rank-item {
-  display: flex;
-  align-items: stretch;
-  height: calc((100vh - 30vh) / 3.8);
-  max-height: 160px;
-  gap: 1%;
-}
-
-  .rank-item {
-    display: flex;
-    align-items: stretch;
-    height: calc((100vh - 30vh) / 3.8);
-    max-height: 120px;
-    gap: 1%;
-  }
-
-  .rank-num {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 10%;
-    flex-shrink: 0;
-  }
-  .rank-num span {
-    font-size: clamp(32px, 6vw, 80px);
-    font-weight: 900;
-    line-height: 1;
-  }
-  .rank-item:nth-child(1) .rank-num span {
-    background: linear-gradient(180deg, #fff700, #f5c842, #c8860a);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    filter: drop-shadow(0 0 8px rgba(245,200,66,0.9));
-  }
-  .rank-item:nth-child(2) .rank-num span { color: #c0c0c0; text-shadow: 0 0 8px #c0c0c0; }
-  .rank-item:nth-child(3) .rank-num span { color: #cd7f32; text-shadow: 0 0 8px #cd7f32; }
-
-  .name-box {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    padding: 0 5%;
-    border-radius: 6px;
-  }
-  .rank-item:nth-child(1) .name-box {
-    background: linear-gradient(135deg, #c8a600, #f5e070, #c8a600);
-    box-shadow: 0 0 20px rgba(245,200,66,0.4);
-  }
-  .rank-item:nth-child(2) .name-box { background: #ffffff; }
-  .rank-item:nth-child(3) .name-box { background: #ffffff; }
-
-  .name-text {
-    font-size: clamp(20px, 4vw, 62px);
-    font-weight: 900;
-    opacity: 0;
-    transition: opacity 0.2s;
-    white-space: nowrap;
-    overflow: hidden;
-  }
-  .rank-item:nth-child(1) .name-text { color: #3d2200; }
-  .rank-item:nth-child(2) .name-text { color: #1a0505; }
-  .rank-item:nth-child(3) .name-text { color: #1a0505; }
-
-  .score-box {
-    width: 28%;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #0a0a0a;
-    border-radius: 6px;
-    border: 1px solid #222;
-  }
-
-  .score-text {
-    font-size: clamp(20px, 4vw, 62px);
-    font-weight: 900;
-    font-family: 'Courier New', monospace;
-    opacity: 0;
-    transition: opacity 0.2s;
-    color: #fff;
-    text-shadow:
-      0 0 7px #fff,
-      0 0 10px #0fa,
-      0 0 21px #0fa,
-      0 0 42px #0fa,
-      0 0 82px #0fa;
-  }
-
-  /* 閉じるボタン */
   .preview-close {
     position: absolute;
     top: 16px;
@@ -293,7 +136,149 @@
     align-items: center;
     justify-content: center;
   }
-  .preview-close:hover { background: rgba(255,255,255,0.2); }
+
+  /* コンテンツ全体 */
+  .preview-content {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3vh 10% 4vh;
+  }
+
+  /* タイトル */
+  .preview-title-sub {
+    font-size: clamp(11px, 1.8vw, 20px);
+    color: #fff;
+    letter-spacing: 4px;
+    font-weight: 700;
+    background: rgba(255,255,255,0.15);
+    padding: 4px 20px;
+    border-radius: 20px;
+    margin-bottom: 1vh;
+    border: 1px solid rgba(255,255,255,0.3);
+    white-space: nowrap;
+  }
+
+  .preview-title-main {
+    font-size: clamp(40px, 9vw, 110px);
+    font-weight: 900;
+    letter-spacing: 4px;
+    margin-bottom: 2vh;
+    background: linear-gradient(180deg, #fff700 0%, #f5c842 40%, #c8860a 70%, #f5c842 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 12px rgba(245,200,66,0.8));
+    line-height: 1;
+  }
+
+  /* ランキング */
+  .rank-items {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+
+  .rank-item {
+    display: flex;
+    align-items: center;
+    height: 28%;
+    gap: 1.5%;
+  }
+
+  .rank-num {
+    width: 9%;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+  .rank-num .num {
+    font-size: clamp(28px, 5.5vw, 72px);
+    font-weight: 900;
+    line-height: 1;
+  }
+  .rank-num .i {
+    font-size: clamp(10px, 1.5vw, 18px);
+    font-weight: 700;
+  }
+
+  .rank-item:nth-child(1) .num,
+  .rank-item:nth-child(1) .i {
+    background: linear-gradient(180deg, #fff700, #f5c842, #c8860a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 6px rgba(245,200,66,0.9));
+  }
+  .rank-item:nth-child(2) .num,
+  .rank-item:nth-child(2) .i { color: #c0c0c0; text-shadow: 0 0 6px #c0c0c0; }
+  .rank-item:nth-child(3) .num,
+  .rank-item:nth-child(3) .i { color: #cd7f32; text-shadow: 0 0 6px #cd7f32; }
+
+  .name-box {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 4%;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .rank-item:nth-child(1) .name-box {
+    background: linear-gradient(135deg, #b8960a, #f5e070, #c8a600);
+    box-shadow: 0 0 20px rgba(245,200,66,0.3);
+  }
+  .rank-item:nth-child(2) .name-box { background: #fff; }
+  .rank-item:nth-child(3) .name-box { background: #fff; }
+
+  .name-text {
+    font-size: clamp(18px, 3.8vw, 52px);
+    font-weight: 900;
+    opacity: 0;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .rank-item:nth-child(1) .name-text { color: #3d2200; }
+  .rank-item:nth-child(2) .name-text { color: #111; }
+  .rank-item:nth-child(3) .name-text { color: #111; }
+
+  .score-box {
+    width: 26%;
+    height: 100%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #050505;
+    border-radius: 6px;
+    border: 1px solid #1a1a1a;
+  }
+
+  .score-text {
+    font-size: clamp(16px, 3.5vw, 48px);
+    font-weight: 900;
+    font-family: 'Courier New', monospace;
+    opacity: 0;
+    transition: opacity 0.2s;
+    color: #fff;
+    text-shadow:
+      0 0 7px #fff,
+      0 0 10px #0fa,
+      0 0 21px #0fa,
+      0 0 42px #0fa,
+      0 0 82px #0fa;
+    white-space: nowrap;
+  }
 </style>
 </head>
 <body>
@@ -319,7 +304,6 @@
   <button class="btn-preview" onclick="startPreview()">▶ プレビューを表示</button>
 </div>
 
-<!-- プレビュー -->
 <div class="preview-overlay" id="previewOverlay">
   <div class="preview-bg"></div>
   <div class="curtain-left"></div>
@@ -333,17 +317,17 @@
 
     <div class="rank-items">
       <div class="rank-item">
-        <div class="rank-num"><span>1<small style="font-size:0.4em;">位</small></span></div>
+        <div class="rank-num"><span class="num">1</span><span class="i">位</span></div>
         <div class="name-box"><span class="name-text" id="pName1"></span></div>
         <div class="score-box"><span class="score-text" id="pScore1"></span></div>
       </div>
       <div class="rank-item">
-        <div class="rank-num"><span>2<small style="font-size:0.4em;">位</small></span></div>
+        <div class="rank-num"><span class="num">2</span><span class="i">位</span></div>
         <div class="name-box"><span class="name-text" id="pName2"></span></div>
         <div class="score-box"><span class="score-text" id="pScore2"></span></div>
       </div>
       <div class="rank-item">
-        <div class="rank-num"><span>3<small style="font-size:0.4em;">位</small></span></div>
+        <div class="rank-num"><span class="num">3</span><span class="i">位</span></div>
         <div class="name-box"><span class="name-text" id="pName3"></span></div>
         <div class="score-box"><span class="score-text" id="pScore3"></span></div>
       </div>
@@ -352,7 +336,7 @@
 </div>
 
 <script>
-  // localStorage で入力値を保持
+  // localStorage
   window.addEventListener('load', () => {
     ['name1','name2','name3','score1','score2','score3'].forEach(id => {
       const saved = localStorage.getItem('karaoke_' + id);
@@ -365,7 +349,7 @@
     });
   });
 
-  // キラキラ生成
+  // キラキラ
   function createSparkles() {
     const container = document.getElementById('sparkles');
     for (let i = 0; i < 30; i++) {
@@ -375,7 +359,8 @@
       s.style.top = Math.random() * 100 + '%';
       s.style.animationDelay = Math.random() * 3 + 's';
       s.style.animationDuration = (1.5 + Math.random() * 2) + 's';
-      s.style.width = s.style.height = (2 + Math.random() * 4) + 'px';
+      const size = (2 + Math.random() * 4) + 'px';
+      s.style.width = s.style.height = size;
       container.appendChild(s);
     }
   }
@@ -393,19 +378,15 @@
       return;
     }
 
-    // リセット
     for (let i = 1; i <= 3; i++) {
-      const nameEl = document.getElementById('pName' + i);
-      const scoreEl = document.getElementById('pScore' + i);
-      nameEl.textContent = '';
-      scoreEl.textContent = '';
-      nameEl.style.opacity = '0';
-      scoreEl.style.opacity = '0';
+      document.getElementById('pName' + i).textContent = '';
+      document.getElementById('pScore' + i).textContent = '';
+      document.getElementById('pName' + i).style.opacity = '0';
+      document.getElementById('pScore' + i).style.opacity = '0';
     }
 
     document.getElementById('previewOverlay').classList.add('show');
 
-    // 3位→2位→1位の順で演出
     [2, 1, 0].forEach((rankIndex, step) => {
       const rank = rankIndex + 1;
       setTimeout(() => {
@@ -418,28 +399,24 @@
   function animateValue(elId, finalValue, duration) {
     const el = document.getElementById(elId);
     if (!finalValue) return;
-
     const isScore = elId.startsWith('pScore');
     const chars = isScore
       ? '0123456789'
       : 'あいうえおかきくけこさしすせそたちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわをん';
-
     let elapsed = 0;
     const interval = 40;
     el.style.opacity = '1';
-
     const timer = setInterval(() => {
       elapsed += interval;
-      const progress = elapsed / duration;
-      if (progress >= 1) {
+      if (elapsed >= duration) {
         clearInterval(timer);
         el.textContent = isScore ? finalValue + '点' : finalValue;
       } else {
-        let randomStr = '';
+        let r = '';
         for (let i = 0; i < finalValue.length; i++) {
-          randomStr += chars[Math.floor(Math.random() * chars.length)];
+          r += chars[Math.floor(Math.random() * chars.length)];
         }
-        el.textContent = isScore ? randomStr + '点' : randomStr;
+        el.textContent = isScore ? r + '点' : r;
       }
     }, interval);
   }
@@ -448,6 +425,5 @@
     document.getElementById('previewOverlay').classList.remove('show');
   }
 </script>
-
 </body>
 </html>
